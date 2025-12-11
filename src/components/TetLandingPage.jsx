@@ -4,6 +4,8 @@ import { Camera, Sparkles, Shirt, Crown, Check, X, Star, Menu, Phone, MapPin, In
 const TetLandingPage = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showBookingModal, setShowBookingModal] = useState(false);
+  const [currentBookingPackage, setCurrentBookingPackage] = useState('');
   
   // State cho AI Feature
   const [aiPrompt, setAiPrompt] = useState('');
@@ -87,6 +89,38 @@ const TetLandingPage = () => {
       alert("Có lỗi xảy ra khi gọi AI. Vui lòng kiểm tra API Key hoặc thử lại sau.");
     } finally {
       setIsAiLoading(false);
+    }
+  };
+
+  // Hàm để đặt lịch (hiển thị modal chọn cách liên hệ)
+  const handleBooking = (packageName = '') => {
+    setCurrentBookingPackage(packageName);
+    setShowBookingModal(true);
+  };
+
+  // Hàm thực hiện liên hệ
+  const handleContact = (method) => {
+    const phoneNumber = "0383091515";
+    let message = "Xin chào! Tôi muốn đặt lịch chụp ảnh Tết 2025";
+    
+    if (currentBookingPackage) {
+      message += ` - ${currentBookingPackage}`;
+    }
+    
+    setShowBookingModal(false);
+    
+    switch(method) {
+      case 'zalo':
+        window.open(`https://zalo.me/${phoneNumber}`, '_blank');
+        break;
+      case 'facebook':
+        window.open("https://m.me/mo.nguyen.makeup.98", '_blank');
+        break;
+      case 'phone':
+        window.open(`tel:${phoneNumber}`);
+        break;
+      default:
+        break;
     }
   };
 
@@ -248,8 +282,8 @@ const TetLandingPage = () => {
           <div className="grid grid-cols-1 gap-4 md:hidden">
             <div className="rounded-2xl overflow-hidden relative group h-64">
               <img 
-                src="https://images.unsplash.com/photo-1548689582-70b7978d53b2?q=80&w=1000&auto=format&fit=crop" 
-                alt="Ao Dai"
+                src="/IMG_2120.JPG"
+                alt="Áo Dài Studio"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-black/30 flex items-end p-6">
@@ -259,16 +293,16 @@ const TetLandingPage = () => {
             <div className="grid grid-cols-2 gap-4">
               <div className="rounded-2xl overflow-hidden relative group h-48">
                 <img 
-                  src="https://images.unsplash.com/photo-1627916905623-64903348003b?q=80&w=600&auto=format&fit=crop" 
-                  alt="Portrait"
+                  src="/IMG_2121.JPG"
+                  alt="Studio Portrait"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-black/20"></div>
               </div>
               <div className="rounded-2xl overflow-hidden relative group h-48">
                 <img 
-                  src="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?q=80&w=600&auto=format&fit=crop" 
-                  alt="Indoor"
+                  src="/IMG_2122.JPG"
+                  alt="Studio Indoor"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-black/20"></div>
@@ -276,8 +310,8 @@ const TetLandingPage = () => {
             </div>
             <div className="rounded-2xl overflow-hidden relative group h-64">
               <img 
-                src="https://images.unsplash.com/photo-1550478174-82e44d823616?q=80&w=600&auto=format&fit=crop" 
-                alt="Flower"
+                src="/IMG_2123.JPG"
+                alt="Studio Concept"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-black/30 flex items-end p-6">
@@ -290,8 +324,8 @@ const TetLandingPage = () => {
           <div className="hidden md:grid grid-cols-2 md:grid-cols-4 gap-4 h-[500px]">
             <div className="col-span-2 row-span-2 rounded-2xl overflow-hidden relative group">
               <img 
-                src="https://images.unsplash.com/photo-1548689582-70b7978d53b2?q=80&w=1000&auto=format&fit=crop" 
-                alt="Ao Dai"
+                src="/IMG_2120.JPG"
+                alt="Áo Dài Studio"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300 flex items-end p-6">
@@ -300,16 +334,16 @@ const TetLandingPage = () => {
             </div>
             <div className="col-span-1 row-span-1 rounded-2xl overflow-hidden relative group">
               <img 
-                src="https://images.unsplash.com/photo-1627916905623-64903348003b?q=80&w=600&auto=format&fit=crop" 
-                alt="Portrait"
+                src="/IMG_2121.JPG"
+                alt="Studio Portrait"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
             </div>
             <div className="col-span-1 row-span-2 rounded-2xl overflow-hidden relative group">
               <img 
-                src="https://images.unsplash.com/photo-1550478174-82e44d823616?q=80&w=600&auto=format&fit=crop" 
-                alt="Flower"
+                src="/IMG_2123.JPG"
+                alt="Studio Concept"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300 flex items-end p-6">
@@ -318,8 +352,8 @@ const TetLandingPage = () => {
             </div>
              <div className="col-span-1 row-span-1 rounded-2xl overflow-hidden relative group">
               <img 
-                src="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?q=80&w=600&auto=format&fit=crop" 
-                alt="Indoor"
+                src="/IMG_2122.JPG"
+                alt="Studio Indoor"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
             </div>
@@ -410,7 +444,9 @@ const TetLandingPage = () => {
                   </div>
 
                   <div className="p-8 pt-0">
-                    <button className={`
+                    <button 
+                      onClick={() => handleBooking(pkg.name)}
+                      className={`
                       w-full py-4 px-6 rounded-xl font-body font-semibold text-sm uppercase tracking-wider transition-all duration-300
                       ${pkg.highlight 
                         ? 'bg-[#8B0000] text-white hover:bg-[#680000] shadow-md hover:shadow-lg' 
@@ -513,7 +549,7 @@ const TetLandingPage = () => {
                     <div className="text-center">
                       <p className="text-gray-400 text-sm mb-3">Bạn thích concept này chứ?</p>
                       <button 
-                        onClick={() => scrollToSection('contact')}
+                        onClick={() => handleBooking(`Concept: ${aiResult.conceptName}`)}
                         className="w-full border border-[#D4AF37] text-[#D4AF37] py-3 rounded-xl hover:bg-[#D4AF37] hover:text-[#2c1810] transition-all uppercase font-bold text-sm"
                       >
                         Đặt lịch theo Concept này
@@ -558,10 +594,10 @@ const TetLandingPage = () => {
             <div className="space-y-4">
               <h4 className="font-serif-display text-lg md:text-xl font-bold text-[#D4AF37] uppercase tracking-wider">Mạng Xã Hội</h4>
               <div className="flex justify-center md:justify-start space-x-4">
-                <a href="#" className="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:bg-[#D4AF37] hover:border-[#D4AF37] hover:text-[#2c1810] transition-all">
+                <a href="https://www.facebook.com/mo.nguyen.makeup.98" className="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:bg-[#D4AF37] hover:border-[#D4AF37] hover:text-[#2c1810] transition-all">
                   <Facebook size={18} />
                 </a>
-                <a href="#" className="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:bg-[#D4AF37] hover:border-[#D4AF37] hover:text-[#2c1810] transition-all">
+                <a href="https://www.facebook.com/mo.nguyen.makeup.98" className="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:bg-[#D4AF37] hover:border-[#D4AF37] hover:text-[#2c1810] transition-all">
                   <Instagram size={18} />
                 </a>
               </div>
@@ -572,6 +608,69 @@ const TetLandingPage = () => {
           </div>
         </div>
       </footer>
+
+      {/* Booking Modal */}
+      {showBookingModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full p-6 relative animate-fade-in">
+            <button 
+              onClick={() => setShowBookingModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <X size={24} />
+            </button>
+            
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-[#8B0000] rounded-full flex items-center justify-center mx-auto mb-4">
+                <Phone className="w-8 h-8 text-[#D4AF37]" />
+              </div>
+              <h3 className="font-serif-display text-2xl font-bold text-[#2c1810] mb-2">
+                Chọn Cách Liên Hệ
+              </h3>
+              {currentBookingPackage && (
+                <p className="text-gray-600 text-sm">
+                  Đặt lịch: <span className="font-semibold">{currentBookingPackage}</span>
+                </p>
+              )}
+            </div>
+
+            <div className="space-y-3">
+              <button 
+                onClick={() => handleContact('zalo')}
+                className="w-full flex items-center justify-center space-x-3 bg-blue-500 text-white py-4 px-6 rounded-xl hover:bg-blue-600 transition-colors font-semibold"
+              >
+                <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
+                  <span className="text-blue-500 text-sm font-bold">Z</span>
+                </div>
+                <span>Chat qua Zalo</span>
+              </button>
+              
+              <button 
+                onClick={() => handleContact('facebook')}
+                className="w-full flex items-center justify-center space-x-3 bg-blue-600 text-white py-4 px-6 rounded-xl hover:bg-blue-700 transition-colors font-semibold"
+              >
+                <Facebook className="w-6 h-6" />
+                <span>Nhắn tin Facebook</span>
+              </button>
+              
+              <button 
+                onClick={() => handleContact('phone')}
+                className="w-full flex items-center justify-center space-x-3 bg-green-500 text-white py-4 px-6 rounded-xl hover:bg-green-600 transition-colors font-semibold"
+              >
+                <Phone className="w-6 h-6" />
+                <span>Gọi điện: 038 309 1515</span>
+              </button>
+            </div>
+            
+            <button 
+              onClick={() => setShowBookingModal(false)}
+              className="w-full mt-4 text-gray-500 hover:text-gray-700 transition-colors py-2"
+            >
+              Hủy
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
