@@ -42,7 +42,7 @@ const TetLandingPage = () => {
       return;
     }
 
-    const systemPrompt = `Đóng vai trò là một Art Director chuyên nghiệp của studio chụp ảnh Tết (XuanStudio). 
+    const systemPrompt = `Đóng vai trò là một Art Director chuyên nghiệp của studio chụp ảnh Tết (Mơ Nguyễn Makeup & Studio). 
     Khách hàng đang tìm ý tưởng chụp ảnh với mong muốn: "${aiPrompt}".
     Hãy sáng tạo một concept cụ thể.
     Yêu cầu trả về định dạng JSON thuần túy (không markdown) với các trường sau:
@@ -163,7 +163,7 @@ const TetLandingPage = () => {
               <Camera size={20} />
             </div>
             <span className={`font-serif-display text-2xl font-bold ${isScrolled ? 'text-[#2c1810]' : 'text-[#2c1810] md:text-white'}`}>
-              XuanStudio
+              Mơ Nguyễn Makeup & Studio
             </span>
           </div>
 
@@ -385,7 +385,7 @@ const TetLandingPage = () => {
           <div className="text-center mb-12">
             <div className="inline-flex items-center justify-center space-x-2 text-[#D4AF37] mb-2">
               <Sparkles className="w-5 h-5 animate-pulse" />
-              <span className="uppercase tracking-[0.2em] text-sm font-medium">Trợ Lý Ảo XuanStudio</span>
+              <span className="uppercase tracking-[0.2em] text-sm font-medium">Trợ Lý Ảo Mơ Nguyễn Makeup & Studio</span>
             </div>
             <h2 className="font-serif-display text-4xl md:text-5xl font-bold mb-4">Bạn Chưa Chọn Được Concept?</h2>
             <p className="font-body text-gray-300 max-w-2xl mx-auto font-light">
@@ -456,7 +456,7 @@ const TetLandingPage = () => {
                       <p className="text-[#2c1810] font-serif-display text-lg italic leading-relaxed mb-4">
                         "{aiResult.caption}"
                       </p>
-                      <div className="text-[#8B0000] text-xs font-bold">#XuanStudio #Tet2025 #{aiResult.conceptName.replace(/\s+/g, '')}</div>
+                      <div className="text-[#8B0000] text-xs font-bold">#Mơ Nguyễn Makeup & Studio #Tet2025 #{aiResult.conceptName.replace(/\s+/g, '')}</div>
                     </div>
 
                     <div className="text-center">
@@ -483,7 +483,7 @@ const TetLandingPage = () => {
             <div className="space-y-4">
               <div className="flex items-center justify-center md:justify-start space-x-2">
                  <Camera size={24} className="text-[#D4AF37]" />
-                 <span className="font-serif-display text-3xl font-bold text-[#D4AF37]">XuanStudio</span>
+                 <span className="font-serif-display text-3xl font-bold text-[#D4AF37]">Mơ Nguyễn Makeup</span>
               </div>
               <p className="font-body text-gray-400 font-light text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
                 Chuyên cung cấp dịch vụ chụp ảnh nghệ thuật, áo dài, cổ phục với phong cách tinh tế và chuyên nghiệp hàng đầu.
@@ -495,11 +495,11 @@ const TetLandingPage = () => {
               <ul className="space-y-3 font-body text-gray-300">
                 <li className="flex items-center justify-center md:justify-start space-x-3">
                   <MapPin size={18} className="text-[#D4AF37]" />
-                  <span>123 Đường Hoa Mai, Quận 1, TP.HCM</span>
+                  <span>982 Cách Mạng Tháng 8, Hiệp Ninh, Tây Ninh</span>
                 </li>
                 <li className="flex items-center justify-center md:justify-start space-x-3">
                   <Phone size={18} className="text-[#D4AF37]" />
-                  <span>0909 123 456 (Zalo/Hotline)</span>
+                  <span>038 309 1515 (Zalo/Hotline)</span>
                 </li>
               </ul>
             </div>
@@ -515,7 +515,7 @@ const TetLandingPage = () => {
                 </a>
               </div>
               <p className="text-gray-500 text-xs font-body mt-4">
-                © 2025 XuanStudio. All rights reserved.
+                © 2025 Mơ Nguyễn Makeup & Studio. All rights reserved.
               </p>
             </div>
           </div>
