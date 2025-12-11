@@ -140,7 +140,7 @@ const TetLandingPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#fdfbf7] font-sans text-[#2c1810]">
+    <div className="min-h-screen bg-[#fdfbf7] font-sans text-[#2c1810] overflow-x-hidden">
       <style>
         {`
           .font-serif-display { font-family: 'Cormorant Garamond', serif; }
@@ -152,27 +152,35 @@ const TetLandingPage = () => {
             background-position: 0 0, 10px 10px;
             opacity: 0.1;
           }
+          
+          body {
+            overflow-x: hidden;
+          }
+          
+          * {
+            box-sizing: border-box;
+          }
         `}
       </style>
 
       {/* Navigation */}
-      <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white/95 backdrop-blur-sm shadow-md py-4' : 'bg-transparent py-6'}`}>
-        <div className="container mx-auto px-4 flex justify-between items-center">
+      <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white/95 backdrop-blur-sm shadow-md py-3 md:py-4' : 'bg-transparent py-4 md:py-6'}`}>
+        <div className="container mx-auto px-4 flex justify-between items-center max-w-full">
           <div className="flex items-center space-x-2 cursor-pointer" onClick={() => scrollToSection('hero')}>
-            <div className="w-10 h-10 bg-[#8B0000] rounded-full flex items-center justify-center text-[#D4AF37]">
-              <Camera size={20} />
+            <div className="w-8 h-8 md:w-10 md:h-10 bg-[#8B0000] rounded-full flex items-center justify-center text-[#D4AF37]">
+              <Camera size={16} className="md:w-5 md:h-5" />
             </div>
-            <span className={`font-serif-display text-2xl font-bold ${isScrolled ? 'text-[#2c1810]' : 'text-[#2c1810] md:text-white'}`}>
+            <span className={`font-serif-display text-base md:text-2xl font-bold ${isScrolled ? 'text-[#2c1810]' : 'text-[#2c1810] md:text-white'} truncate`}>
               Mơ Nguyễn Makeup & Studio
             </span>
           </div>
 
           {/* Desktop Menu */}
-          <div className={`hidden md:flex space-x-8 font-body font-medium text-sm tracking-wide ${isScrolled ? 'text-[#2c1810]' : 'text-white'}`}>
-            <button onClick={() => scrollToSection('gallery')} className="hover:text-[#D4AF37] transition-colors">THƯ VIỆN ẢNH</button>
-            <button onClick={() => scrollToSection('pricing')} className="hover:text-[#D4AF37] transition-colors">BẢNG GIÁ</button>
-            <button onClick={() => scrollToSection('ai-consultant')} className="hover:text-[#D4AF37] transition-colors flex items-center gap-1"><Sparkles size={14}/> GỢI Ý CONCEPT AI</button>
-            <button onClick={() => scrollToSection('contact')} className="hover:text-[#D4AF37] transition-colors">LIÊN HỆ</button>
+          <div className={`hidden md:flex space-x-6 lg:space-x-8 font-body font-medium text-sm tracking-wide ${isScrolled ? 'text-[#2c1810]' : 'text-white'}`}>
+            <button onClick={() => scrollToSection('gallery')} className="hover:text-[#D4AF37] transition-colors whitespace-nowrap">THƯ VIỆN ẢNH</button>
+            <button onClick={() => scrollToSection('pricing')} className="hover:text-[#D4AF37] transition-colors whitespace-nowrap">BẢNG GIÁ</button>
+            <button onClick={() => scrollToSection('ai-consultant')} className="hover:text-[#D4AF37] transition-colors flex items-center gap-1 whitespace-nowrap"><Sparkles size={14}/> AI CONCEPT</button>
+            <button onClick={() => scrollToSection('contact')} className="hover:text-[#D4AF37] transition-colors whitespace-nowrap">LIÊN HỆ</button>
           </div>
 
           <button 
@@ -205,20 +213,20 @@ const TetLandingPage = () => {
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-[#fdfbf7]"></div>
         </div>
 
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto space-y-6 animate-fade-in-up">
-          <div className="inline-block border border-[#D4AF37]/50 px-4 py-1 rounded-full bg-black/20 backdrop-blur-sm">
+        <div className="relative z-10 text-center px-4 md:px-4 max-w-4xl mx-auto space-y-6 md:space-y-6 animate-fade-in-up">
+          <div className="inline-block border border-[#D4AF37]/50 px-4 py-2 md:px-4 rounded-full bg-black/20 backdrop-blur-sm">
              <span className="text-[#D4AF37] font-body text-xs md:text-sm uppercase tracking-[0.2em]">Lịch chụp Tết 2025 đã mở</span>
           </div>
-          <h1 className="font-serif-display text-5xl md:text-7xl lg:text-8xl text-white font-bold leading-tight">
+          <h1 className="font-serif-display text-4xl md:text-7xl lg:text-8xl text-white font-bold leading-tight">
             Nét Duyên Dáng <br/> <span className="italic text-[#D4AF37]">Mùa Xuân</span>
           </h1>
-          <p className="font-body text-gray-200 text-lg md:text-xl font-light max-w-2xl mx-auto">
+          <p className="font-body text-gray-200 text-lg md:text-xl font-light max-w-2xl mx-auto px-0 md:px-0">
             Lưu giữ khoảnh khắc thanh xuân rực rỡ nhất của bạn trong tà áo dài truyền thống và không gian Tết đậm chất nghệ thuật.
           </p>
-          <div className="pt-8">
+          <div className="pt-6 md:pt-8">
             <button 
               onClick={() => scrollToSection('pricing')}
-              className="group bg-[#8B0000] text-white px-8 py-4 rounded-full font-body font-semibold text-sm uppercase tracking-widest hover:bg-[#a00000] transition-all duration-300 shadow-lg hover:shadow-[#8B0000]/50 inline-flex items-center space-x-2"
+              className="group bg-[#8B0000] text-white px-8 py-4 md:px-8 md:py-4 rounded-full font-body font-semibold text-sm md:text-sm uppercase tracking-widest hover:bg-[#a00000] transition-all duration-300 shadow-lg hover:shadow-[#8B0000]/50 inline-flex items-center space-x-2"
             >
               <span>Xem Bảng Giá</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -228,15 +236,58 @@ const TetLandingPage = () => {
       </section>
 
       {/* Gallery Preview Section */}
-      <section id="gallery" className="py-20 md:py-32 relative">
+      <section id="gallery" className="py-16 md:py-32 relative">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="font-serif-display text-4xl md:text-5xl text-[#2c1810] font-bold mb-4">Góc Ảnh Nghệ Thuật</h2>
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="font-serif-display text-3xl md:text-5xl text-[#2c1810] font-bold mb-4">Góc Ảnh Nghệ Thuật</h2>
             <div className="h-1 w-20 bg-[#D4AF37] mx-auto rounded-full"></div>
             <p className="mt-4 text-gray-600 font-body font-light">Các concept đang được yêu thích nhất</p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 h-[600px] md:h-[500px]">
+          {/* Mobile Gallery Grid */}
+          <div className="grid grid-cols-1 gap-4 md:hidden">
+            <div className="rounded-2xl overflow-hidden relative group h-64">
+              <img 
+                src="https://images.unsplash.com/photo-1548689582-70b7978d53b2?q=80&w=1000&auto=format&fit=crop" 
+                alt="Ao Dai"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-black/30 flex items-end p-6">
+                <p className="text-white font-serif-display text-xl italic">Áo Dài Phố Cổ</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="rounded-2xl overflow-hidden relative group h-48">
+                <img 
+                  src="https://images.unsplash.com/photo-1627916905623-64903348003b?q=80&w=600&auto=format&fit=crop" 
+                  alt="Portrait"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/20"></div>
+              </div>
+              <div className="rounded-2xl overflow-hidden relative group h-48">
+                <img 
+                  src="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?q=80&w=600&auto=format&fit=crop" 
+                  alt="Indoor"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/20"></div>
+              </div>
+            </div>
+            <div className="rounded-2xl overflow-hidden relative group h-64">
+              <img 
+                src="https://images.unsplash.com/photo-1550478174-82e44d823616?q=80&w=600&auto=format&fit=crop" 
+                alt="Flower"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-black/30 flex items-end p-6">
+                 <p className="text-white font-serif-display text-xl italic">Vườn Xuân</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop Gallery Grid */}
+          <div className="hidden md:grid grid-cols-2 md:grid-cols-4 gap-4 h-[500px]">
             <div className="col-span-2 row-span-2 rounded-2xl overflow-hidden relative group">
               <img 
                 src="https://images.unsplash.com/photo-1548689582-70b7978d53b2?q=80&w=1000&auto=format&fit=crop" 
@@ -277,25 +328,25 @@ const TetLandingPage = () => {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="relative py-20 bg-white/50">
+      <section id="pricing" className="relative py-16 md:py-20 bg-white/50 overflow-hidden">
         <div className="absolute inset-0 bg-texture pointer-events-none"></div>
-        <div className="absolute top-0 left-0 w-64 h-64 bg-red-50 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 opacity-60"></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-yellow-50 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 opacity-60"></div>
+        <div className="absolute top-0 left-0 w-48 h-48 md:w-64 md:h-64 bg-red-50 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 opacity-60"></div>
+        <div className="absolute bottom-0 right-0 w-64 h-64 md:w-96 md:h-96 bg-yellow-50 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 opacity-60"></div>
 
         <div className="relative container mx-auto px-4">
-          <div className="text-center mb-16 space-y-4">
+          <div className="text-center mb-12 md:mb-16 space-y-4">
             <div className="inline-flex items-center justify-center space-x-2 text-[#8B0000] mb-2">
-              <Sparkles className="w-5 h-5" />
-              <span className="uppercase tracking-[0.2em] text-sm font-medium">Bảng Giá Mới Nhất</span>
-              <Sparkles className="w-5 h-5" />
+              <Sparkles className="w-4 h-4 md:w-5 md:h-5" />
+              <span className="uppercase tracking-[0.2em] text-xs md:text-sm font-medium">Bảng Giá Mới Nhất</span>
+              <Sparkles className="w-4 h-4 md:w-5 md:h-5" />
             </div>
-            <h2 className="font-serif-display text-5xl md:text-6xl text-[#2c1810] font-bold">
+            <h2 className="font-serif-display text-3xl md:text-6xl text-[#2c1810] font-bold">
               Chụp Ảnh Tết 2025
             </h2>
-            <div className="h-1 w-24 bg-[#D4AF37] mx-auto rounded-full my-6"></div>
+            <div className="h-1 w-20 md:w-24 bg-[#D4AF37] mx-auto rounded-full my-4 md:my-6"></div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-start">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
             {packages.map((pkg) => (
               <div 
                 key={pkg.id}
@@ -320,25 +371,25 @@ const TetLandingPage = () => {
                     </div>
                   )}
 
-                  <div className={`p-8 text-center ${pkg.highlight ? 'pt-12' : ''}`}>
+                  <div className={`p-6 md:p-8 text-center ${pkg.highlight ? 'pt-12 md:pt-12' : ''}`}>
                     <div className={`
-                      w-14 h-14 mx-auto rounded-full flex items-center justify-center mb-6 transition-colors duration-300
+                      w-12 h-12 md:w-14 md:h-14 mx-auto rounded-full flex items-center justify-center mb-4 md:mb-6 transition-colors duration-300
                       ${pkg.highlight ? 'bg-[#fff9e6] text-[#D4AF37]' : 'bg-gray-50 text-gray-400 group-hover:bg-[#fff0f0] group-hover:text-[#8B0000]'}
                     `}>
                       {pkg.icon}
                     </div>
-                    <h3 className="font-serif-display text-2xl font-bold text-[#2c1810] mb-2">{pkg.name}</h3>
+                    <h3 className="font-serif-display text-xl md:text-2xl font-bold text-[#2c1810] mb-2">{pkg.name}</h3>
                     <div className="flex items-start justify-center text-[#8B0000] font-serif-display font-bold mb-4">
-                      <span className="text-2xl mt-2">₫</span>
-                      <span className="text-5xl">{pkg.price}</span>
+                      <span className="text-xl md:text-2xl mt-1 md:mt-2">₫</span>
+                      <span className="text-3xl md:text-5xl">{pkg.price}</span>
                     </div>
-                    <p className="text-gray-500 text-sm font-body font-light px-4 min-h-[40px]">{pkg.description}</p>
+                    <p className="text-gray-500 text-sm font-body font-light px-2 md:px-4 min-h-[40px]">{pkg.description}</p>
                   </div>
 
                   <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
 
-                  <div className="p-8">
-                    <ul className="space-y-4">
+                  <div className="p-6 md:p-8">
+                    <ul className="space-y-3 md:space-y-4">
                       {pkg.features.map((feature, idx) => (
                         <li key={idx} className="flex items-start space-x-3">
                           {feature.included ? (
@@ -377,28 +428,28 @@ const TetLandingPage = () => {
       </section>
 
       {/* AI Consultant Section */}
-      <section id="ai-consultant" className="py-20 bg-[#2c1810] relative overflow-hidden text-[#fdfbf7]">
+      <section id="ai-consultant" className="py-16 md:py-20 bg-[#2c1810] relative overflow-hidden text-[#fdfbf7]">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#D4AF37] rounded-full blur-[100px] opacity-10 translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute top-0 right-0 w-64 h-64 md:w-96 md:h-96 bg-[#D4AF37] rounded-full blur-[100px] opacity-10 translate-x-1/2 -translate-y-1/2"></div>
         
         <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center mb-12">
+          <div className="text-center mb-10 md:mb-12">
             <div className="inline-flex items-center justify-center space-x-2 text-[#D4AF37] mb-2">
-              <Sparkles className="w-5 h-5 animate-pulse" />
-              <span className="uppercase tracking-[0.2em] text-sm font-medium">Trợ Lý Ảo Mơ Nguyễn Makeup & Studio</span>
+              <Sparkles className="w-4 h-4 md:w-5 md:h-5 animate-pulse" />
+              <span className="uppercase tracking-[0.2em] text-xs md:text-sm font-medium">Trợ Lý Ảo Mơ Nguyễn</span>
             </div>
-            <h2 className="font-serif-display text-4xl md:text-5xl font-bold mb-4">Bạn Chưa Chọn Được Concept?</h2>
-            <p className="font-body text-gray-300 max-w-2xl mx-auto font-light">
+            <h2 className="font-serif-display text-3xl md:text-5xl font-bold mb-4">Bạn Chưa Chọn Được Concept?</h2>
+            <p className="font-body text-gray-300 max-w-2xl mx-auto font-light text-base md:text-base px-4 md:px-0">
               Đừng lo, hãy chia sẻ sở thích của bạn (màu sắc, tâm trạng, phong cách...), Stylist AI của chúng tôi sẽ gợi ý ngay một concept hoàn hảo dành riêng cho bạn.
             </p>
           </div>
 
           <div className="max-w-4xl mx-auto bg-white/5 backdrop-blur-md rounded-2xl p-6 md:p-10 border border-[#D4AF37]/30 shadow-2xl">
-            <div className="flex flex-col md:flex-row gap-4 mb-8">
+            <div className="flex flex-col gap-4 mb-6 md:mb-8">
               <input 
                 type="text" 
                 placeholder="Ví dụ: Tôi muốn chụp kiểu hoài cổ, mặc áo dài trắng, buồn man mác..." 
-                className="flex-1 bg-white/10 border border-gray-600 rounded-xl px-6 py-4 text-white placeholder-gray-400 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all font-body"
+                className="w-full bg-white/10 border border-gray-600 rounded-xl px-6 py-4 md:px-6 md:py-4 text-white placeholder-gray-400 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all font-body text-base md:text-base"
                 value={aiPrompt}
                 onChange={(e) => setAiPrompt(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleAiGenerate()}
@@ -406,7 +457,7 @@ const TetLandingPage = () => {
               <button 
                 onClick={handleAiGenerate}
                 disabled={isAiLoading || !aiPrompt.trim()}
-                className="bg-[#D4AF37] text-[#2c1810] px-8 py-4 rounded-xl font-bold uppercase tracking-wider hover:bg-[#bfa34b] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 min-w-[180px]"
+                className="bg-[#D4AF37] text-[#2c1810] px-8 py-4 md:px-8 md:py-4 rounded-xl font-bold uppercase tracking-wider hover:bg-[#bfa34b] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 text-base md:text-base"
               >
                 {isAiLoading ? <Loader2 className="animate-spin" /> : <><Wand2 size={20} /> Gợi Ý ✨</>}
               </button>
@@ -415,11 +466,11 @@ const TetLandingPage = () => {
             {/* AI Result Display */}
             {aiResult && (
               <div className="animate-fade-in space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
                   {/* Left Column: Concept Info */}
                   <div className="space-y-6">
-                    <div className="bg-[#8B0000]/20 p-6 rounded-xl border border-[#8B0000]/50">
-                      <h3 className="text-[#D4AF37] font-serif-display text-2xl font-bold mb-2 flex items-center gap-2">
+                    <div className="bg-[#8B0000]/20 p-4 md:p-6 rounded-xl border border-[#8B0000]/50">
+                      <h3 className="text-[#D4AF37] font-serif-display text-xl md:text-2xl font-bold mb-2 flex items-center gap-2">
                         <Camera size={20}/> {aiResult.conceptName}
                       </h3>
                       <p className="text-gray-200 font-body text-sm leading-relaxed">{aiResult.outfit}</p>
@@ -435,7 +486,7 @@ const TetLandingPage = () => {
                       <ul className="space-y-2">
                         {aiResult.poses.map((pose, idx) => (
                           <li key={idx} className="flex items-start gap-3 text-sm text-gray-300">
-                            <span className="bg-[#D4AF37] text-[#2c1810] w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">{idx + 1}</span>
+                            <span className="bg-[#D4AF37] text-[#2c1810] w-6 h-6 md:w-5 md:h-5 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">{idx + 1}</span>
                             {pose}
                           </li>
                         ))}
@@ -445,18 +496,18 @@ const TetLandingPage = () => {
 
                   {/* Right Column: Caption & CTA */}
                   <div className="flex flex-col justify-between space-y-6">
-                    <div className="bg-[#fdfbf7] p-6 rounded-xl shadow-lg rotate-1 transform hover:rotate-0 transition-transform duration-300">
+                    <div className="bg-[#fdfbf7] p-4 md:p-6 rounded-xl shadow-lg transform hover:rotate-0 transition-transform duration-300">
                       <div className="flex justify-between items-center mb-4">
                         <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
-                          <div className="h-2 w-20 bg-gray-200 rounded"></div>
+                          <div className="w-6 h-6 md:w-8 md:h-8 bg-gray-200 rounded-full"></div>
+                          <div className="h-2 w-16 md:w-20 bg-gray-200 rounded"></div>
                         </div>
                         <Facebook size={16} className="text-blue-600"/>
                       </div>
-                      <p className="text-[#2c1810] font-serif-display text-lg italic leading-relaxed mb-4">
+                      <p className="text-[#2c1810] font-serif-display text-base md:text-lg italic leading-relaxed mb-4">
                         "{aiResult.caption}"
                       </p>
-                      <div className="text-[#8B0000] text-xs font-bold">#Mơ Nguyễn Makeup & Studio #Tet2025 #{aiResult.conceptName.replace(/\s+/g, '')}</div>
+                      <div className="text-[#8B0000] text-xs font-bold">#MoNguyenMakeup #Tet2025 #{aiResult.conceptName.replace(/\s+/g, '')}</div>
                     </div>
 
                     <div className="text-center">
@@ -477,13 +528,13 @@ const TetLandingPage = () => {
       </section>
 
       {/* Footer */}
-      <footer id="contact" className="bg-[#2c1810] text-[#fdfbf7] py-16">
+      <footer id="contact" className="bg-[#2c1810] text-[#fdfbf7] py-12 md:py-16">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 text-center md:text-left">
             <div className="space-y-4">
               <div className="flex items-center justify-center md:justify-start space-x-2">
                  <Camera size={24} className="text-[#D4AF37]" />
-                 <span className="font-serif-display text-3xl font-bold text-[#D4AF37]">Mơ Nguyễn Makeup</span>
+                 <span className="font-serif-display text-xl md:text-2xl font-bold text-[#D4AF37]">Mơ Nguyễn Makeup & Studio</span>
               </div>
               <p className="font-body text-gray-400 font-light text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
                 Chuyên cung cấp dịch vụ chụp ảnh nghệ thuật, áo dài, cổ phục với phong cách tinh tế và chuyên nghiệp hàng đầu.
@@ -491,27 +542,27 @@ const TetLandingPage = () => {
             </div>
             
             <div className="space-y-4">
-              <h4 className="font-serif-display text-xl font-bold text-[#D4AF37] uppercase tracking-wider">Liên Hệ</h4>
-              <ul className="space-y-3 font-body text-gray-300">
-                <li className="flex items-center justify-center md:justify-start space-x-3">
-                  <MapPin size={18} className="text-[#D4AF37]" />
-                  <span>982 Cách Mạng Tháng 8, Hiệp Ninh, Tây Ninh</span>
+              <h4 className="font-serif-display text-lg md:text-xl font-bold text-[#D4AF37] uppercase tracking-wider">Liên Hệ</h4>
+              <ul className="space-y-3 font-body text-gray-300 text-sm">
+                <li className="flex items-start justify-center md:justify-start space-x-3">
+                  <MapPin size={16} className="text-[#D4AF37] flex-shrink-0 mt-0.5" />
+                  <span className="text-left">982 Cách Mạng Tháng 8, Hiệp Ninh, Tây Ninh</span>
                 </li>
                 <li className="flex items-center justify-center md:justify-start space-x-3">
-                  <Phone size={18} className="text-[#D4AF37]" />
+                  <Phone size={16} className="text-[#D4AF37] flex-shrink-0" />
                   <span>038 309 1515 (Zalo/Hotline)</span>
                 </li>
               </ul>
             </div>
 
             <div className="space-y-4">
-              <h4 className="font-serif-display text-xl font-bold text-[#D4AF37] uppercase tracking-wider">Mạng Xã Hội</h4>
+              <h4 className="font-serif-display text-lg md:text-xl font-bold text-[#D4AF37] uppercase tracking-wider">Mạng Xã Hội</h4>
               <div className="flex justify-center md:justify-start space-x-4">
                 <a href="#" className="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:bg-[#D4AF37] hover:border-[#D4AF37] hover:text-[#2c1810] transition-all">
-                  <Facebook size={20} />
+                  <Facebook size={18} />
                 </a>
                 <a href="#" className="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:bg-[#D4AF37] hover:border-[#D4AF37] hover:text-[#2c1810] transition-all">
-                  <Instagram size={20} />
+                  <Instagram size={18} />
                 </a>
               </div>
               <p className="text-gray-500 text-xs font-body mt-4">
