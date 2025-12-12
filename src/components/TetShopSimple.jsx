@@ -140,6 +140,14 @@ ${orderItems}
   };
 
   // Contact methods
+  const handlePhoneCall = () => {
+    window.location.href = 'tel:0383091515';
+    setShowContactModal(false);
+    setTimeout(() => {
+      clearCart();
+      setIsCartOpen(false);
+    }, 1000);
+  };
 
   const handleZalo = () => {
     const zaloMessage = encodeURIComponent(orderData.text);
@@ -164,34 +172,20 @@ ${orderItems}
 // Mo.Nguyen.MakeupAcademy
 
   const handleFacebookMessenger = () => {
-    const messengerMessage = encodeURIComponent(orderData.text);
-    // Try multiple Facebook approaches
-    const facebookPageId = "100065198062869"; // Replace with actual Page ID if different
-    const facebookUsername = "mo.nguyen.makeup.98";
+    // Simple approach - just open the Facebook page without copy
+    const facebookPageUrl = `https://www.facebook.com/mo.nguyen.makeup.98`;
+    const facebookMessengerUrl = `https://m.me/mo.nguyen.makeup.98`;
     
-    // Method 1: Try Facebook app messenger
-    const fbAppUrl = `fb-messenger://user/${facebookPageId}`;
+    // Try m.me first (works better on mobile)
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
-    // Method 2: Facebook web messenger with Page ID
-    const fbWebUrl = `https://m.me/${facebookPageId}?text=${messengerMessage}`;
-    
-    // Method 3: Fallback to profile messenger
-    const fbFallbackUrl = `https://www.facebook.com/messages/t/${facebookUsername}`;
-    
-    // Try to open Facebook app first
-    window.location.href = fbAppUrl;
-    
-    // Fallback to web messenger after delay
-    setTimeout(() => {
-      const newWindow = window.open(fbWebUrl, '_blank');
-      
-      // If that fails, try the fallback
-      if (!newWindow || newWindow.closed || typeof(newWindow.closed) === "undefined") {
-        setTimeout(() => {
-          window.open(fbFallbackUrl, '_blank');
-        }, 500);
-      }
-    }, 1000);
+    if (isMobile) {
+      // On mobile: try messenger app first, then web
+      window.location.href = facebookPageUrl;
+    } else {
+      // On desktop: open Facebook page in new tab
+      window.open(facebookPageUrl, '_blank');
+    }
     
     setShowContactModal(false);
     setTimeout(() => {
@@ -1201,6 +1195,44 @@ ${orderItems}
             <div style={{ padding: '24px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
 
+                {/* Phone Call */}
+                <button 
+                  onClick={handlePhoneCall}
+                  style={{ 
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '16px',
+                    width: '100%',
+                    background: 'linear-gradient(135deg, #34D399 0%, #10B981 100%)',
+                    color: 'white',
+                    border: 'none',
+                    padding: '16px 20px',
+                    borderRadius: '12px',
+                    fontSize: '16px',
+                    fontWeight: 'bold',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    boxShadow: '0 4px 12px rgba(52, 211, 153, 0.3)'
+                  }}
+                >
+                  <div style={{ 
+                    background: 'rgba(255,255,255,0.2)', 
+                    borderRadius: '50%', 
+                    width: '48px', 
+                    height: '48px', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    fontSize: '20px'
+                  }}>
+                    📞
+                  </div>
+                  <div style={{ textAlign: 'left', flex: 1 }}>
+                    <div>Gọi Điện Ngay</div>
+                    <div style={{ fontSize: '14px', opacity: 0.9 }}>0383.091.515 - Nhanh nhất</div>
+                  </div>
+                </button>
+
                 {/* Facebook Messenger */}
                 <button 
                   onClick={handleFacebookMessenger}
@@ -1273,7 +1305,7 @@ ${orderItems}
                   </div>
                   <div style={{ textAlign: 'left', flex: 1 }}>
                     <div>Gửi Qua Zalo</div>
-                    <div style={{ fontSize: '14px', opacity: 0.9 }}>Ứng dụng Zalo</div>
+                    <div style={{ fontSize: '14px', opacity: 0.9 }}>Với thông tin đơn hàng</div>
                   </div>
                 </button>
               </div>
@@ -1292,7 +1324,7 @@ ${orderItems}
                   color: '#6B7280',
                   lineHeight: '1.4'
                 }}>
-                  💡 <strong>Gợi ý:</strong> Nhắn tin qua Zalo hoặc Messenger để được xác nhận đơn hàng nhanh chóng!
+                  💡 <strong>Gợi ý:</strong> Gọi điện trực tiếp để đặt hàng nhanh nhất! Hoặc nhắn tin qua Zalo/Messenger.
                 </p>
               </div>
             </div>
