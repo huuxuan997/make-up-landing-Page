@@ -39,6 +39,8 @@ const TetShopSimple = () => {
   const [viewingProduct, setViewingProduct] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
+  const [showContactModal, setShowContactModal] = useState(false);
+  const [orderData, setOrderData] = useState(null);
 
   console.log('TetShopSimple rendered');
 
@@ -111,26 +113,98 @@ const TetShopSimple = () => {
     setViewingProduct(null);
   };
 
-  // Checkout function - Send to Facebook Messenger
+  // Checkout function - Show contact options modal
   const handleCheckout = () => {
     if (cart.length === 0) return;
     
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const orderItems = cart.map(item => `• ${item.name} (x${item.quantity}): ${(item.price * item.quantity).toLocaleString()}đ`).join('%0A');
+    const orderItems = cart.map(item => `• ${item.name} (x${item.quantity}): ${(item.price * item.quantity).toLocaleString()}đ`).join('\n');
     
-    // Create formatted message for Facebook Messenger
-    const message = `Chào Mơ Nguyễn Makeup &Studio! 🌸%0A%0A📋 Tôi muốn đặt mua:%0A${orderItems}%0A%0A💰 Tổng cộng: ${total.toLocaleString()}đ%0A%0A🙏 Mong shop xác nhận đơn hàng giúp em ạ!`;
+    // Create formatted message
+    const orderText = `Chào Mơ Nguyễn Makeup & Studio! 🌸
+
+📋 Tôi muốn đặt mua:
+${orderItems}
+
+💰 Tổng cộng: ${total.toLocaleString()}đ
+
+🙏 Mong shop xác nhận đơn hàng giúp em ạ!`;
+
+    // Store order data and show contact modal
+    setOrderData({
+      text: orderText,
+      total: total,
+      items: cart
+    });
+    setShowContactModal(true);
+  };
+
+  // Contact methods
+
+  const handleZalo = () => {
+    const zaloMessage = encodeURIComponent(orderData.text);
+    // Try Zalo app first, fallback to web
+    const zaloAppUrl = `zalo://conversation?phone=0383091515&message=${zaloMessage}`;
+    const zaloWebUrl = `https://zalo.me/0383091515`;
     
-    // Facebook Page ID or username - Replace with your actual Facebook Page
-    const facebookPageUsername = "moneguyen.makeup"; // Thay bằng username Facebook Page của bạn
-    const messengerUrl = `https://m.me/${facebookPageUsername}?text=${message}`;
+    // Try to open Zalo app
+    window.location.href = zaloAppUrl;
     
-    // Open Facebook Messenger
-    if (typeof window !== 'undefined') {
-      window.open(messengerUrl, '_blank');
-    }
+    // Fallback to web after delay
+    setTimeout(() => {
+      window.open(zaloWebUrl, '_blank');
+    }, 1000);
     
-    // Clear cart after sending
+    setShowContactModal(false);
+    setTimeout(() => {
+      clearCart();
+      setIsCartOpen(false);
+    }, 2000);
+  };
+// Mo.Nguyen.MakeupAcademy
+
+  const handleFacebookMessenger = () => {
+    const messengerMessage = encodeURIComponent(orderData.text);
+    // Try multiple Facebook approaches
+    const facebookPageId = "100065198062869"; // Replace with actual Page ID if different
+    const facebookUsername = "mo.nguyen.makeup.98";
+    
+    // Method 1: Try Facebook app messenger
+    const fbAppUrl = `fb-messenger://user/${facebookPageId}`;
+    
+    // Method 2: Facebook web messenger with Page ID
+    const fbWebUrl = `https://m.me/${facebookPageId}?text=${messengerMessage}`;
+    
+    // Method 3: Fallback to profile messenger
+    const fbFallbackUrl = `https://www.facebook.com/messages/t/${facebookUsername}`;
+    
+    // Try to open Facebook app first
+    window.location.href = fbAppUrl;
+    
+    // Fallback to web messenger after delay
+    setTimeout(() => {
+      const newWindow = window.open(fbWebUrl, '_blank');
+      
+      // If that fails, try the fallback
+      if (!newWindow || newWindow.closed || typeof(newWindow.closed) === "undefined") {
+        setTimeout(() => {
+          window.open(fbFallbackUrl, '_blank');
+        }, 500);
+      }
+    }, 1000);
+    
+    setShowContactModal(false);
+    setTimeout(() => {
+      clearCart();
+      setIsCartOpen(false);
+    }, 1000);
+  };
+  
+
+  const handleSMS = () => {
+    const smsMessage = encodeURIComponent(orderData.text);
+    window.location.href = `sms:0383091515?body=${smsMessage}`;
+    setShowContactModal(false);
     setTimeout(() => {
       clearCart();
       setIsCartOpen(false);
@@ -729,7 +803,7 @@ const TetShopSimple = () => {
                   onClick={handleCheckout}
                   style={{ 
                     width: '100%',
-                    background: '#1877F2',
+                    background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
                     color: 'white',
                     border: 'none',
                     padding: '16px',
@@ -742,10 +816,10 @@ const TetShopSimple = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '8px',
-                    boxShadow: '0 4px 12px rgba(24, 119, 242, 0.3)'
+                    boxShadow: '0 4px 12px rgba(37, 211, 102, 0.3)'
                   }}
                 >
-                  📱 Đặt Hàng Qua Messenger
+                  📱 Đặt Hàng Ngay
                 </button>
               </div>
             )}
@@ -1043,9 +1117,183 @@ const TetShopSimple = () => {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span style={{ fontSize: '16px' }}>📱</span>
                   <span style={{ fontSize: '13px', color: '#666' }}>
-                    Đặt hàng qua <strong>Facebook Messenger</strong> nhanh chóng
+                    Đặt hàng qua <strong>Zalo/Messenger</strong> nhanh chóng
                   </span>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Contact Options Modal */}
+      {showContactModal && (
+        <div style={{ 
+          position: 'fixed', 
+          top: '0', 
+          left: '0', 
+          right: '0', 
+          bottom: '0', 
+          background: 'rgba(0,0,0,0.7)', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          padding: '16px',
+          zIndex: 4000
+        }}>
+          <div 
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+            onClick={() => setShowContactModal(false)}
+          ></div>
+          <div style={{ 
+            background: 'white', 
+            borderRadius: '20px', 
+            maxWidth: '500px',
+            width: '100%',
+            position: 'relative',
+            overflow: 'hidden'
+          }}>
+            {/* Header */}
+            <div style={{ 
+              background: 'linear-gradient(135deg, #8B0000 0%, #D4AF37 100%)',
+              color: 'white',
+              padding: '24px',
+              textAlign: 'center',
+              position: 'relative'
+            }}>
+              <button 
+                onClick={() => setShowContactModal(false)}
+                style={{ 
+                  position: 'absolute',
+                  top: '16px',
+                  right: '16px',
+                  background: 'rgba(255,255,255,0.2)',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: '32px',
+                  height: '32px',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'white'
+                }}
+              >
+                <CloseIcon size={18} />
+              </button>
+              <h3 style={{ 
+                margin: '0 0 8px 0', 
+                fontSize: '24px', 
+                fontWeight: 'bold' 
+              }}>
+                📱 Chọn Cách Liên Hệ
+              </h3>
+              <p style={{ 
+                margin: 0, 
+                opacity: 0.9,
+                fontSize: '14px'
+              }}>
+                Tổng đơn hàng: {orderData?.total.toLocaleString()}đ
+              </p>
+            </div>
+
+            {/* Contact Options */}
+            <div style={{ padding: '24px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+
+                {/* Facebook Messenger */}
+                <button 
+                  onClick={handleFacebookMessenger}
+                  style={{ 
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '16px',
+                    width: '100%',
+                    background: 'linear-gradient(135deg, #1877F2 0%, #42A5F5 100%)',
+                    color: 'white',
+                    border: 'none',
+                    padding: '16px 20px',
+                    borderRadius: '12px',
+                    fontSize: '16px',
+                    fontWeight: 'bold',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    boxShadow: '0 4px 12px rgba(24, 119, 242, 0.3)'
+                  }}
+                >
+                  <div style={{ 
+                    background: 'rgba(255,255,255,0.2)', 
+                    borderRadius: '50%', 
+                    width: '48px', 
+                    height: '48px', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    fontSize: '20px'
+                  }}>
+                    💬
+                  </div>
+                  <div style={{ textAlign: 'left', flex: 1 }}>
+                    <div>Nhắn Tin Facebook</div>
+                    <div style={{ fontSize: '14px', opacity: 0.9 }}>Mo.Nguyen.Makeup.98</div>
+                  </div>
+                </button>
+
+                {/* Zalo */}
+                <button 
+                  onClick={handleZalo}
+                  style={{ 
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '16px',
+                    width: '100%',
+                    background: 'linear-gradient(135deg, #0068FF 0%, #0052CC 100%)',
+                    color: 'white',
+                    border: 'none',
+                    padding: '16px 20px',
+                    borderRadius: '12px',
+                    fontSize: '16px',
+                    fontWeight: 'bold',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    boxShadow: '0 4px 12px rgba(0, 104, 255, 0.3)'
+                  }}
+                >
+                  <div style={{ 
+                    background: 'rgba(255,255,255,0.2)', 
+                    borderRadius: '50%', 
+                    width: '48px', 
+                    height: '48px', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    fontSize: '20px'
+                  }}>
+                    💙
+                  </div>
+                  <div style={{ textAlign: 'left', flex: 1 }}>
+                    <div>Gửi Qua Zalo</div>
+                    <div style={{ fontSize: '14px', opacity: 0.9 }}>Ứng dụng Zalo</div>
+                  </div>
+                </button>
+              </div>
+
+              {/* Footer Note */}
+              <div style={{ 
+                marginTop: '20px', 
+                padding: '16px', 
+                background: '#F3F4F6', 
+                borderRadius: '12px',
+                textAlign: 'center'
+              }}>
+                <p style={{ 
+                  margin: '0', 
+                  fontSize: '13px', 
+                  color: '#6B7280',
+                  lineHeight: '1.4'
+                }}>
+                  💡 <strong>Gợi ý:</strong> Nhắn tin qua Zalo hoặc Messenger để được xác nhận đơn hàng nhanh chóng!
+                </p>
               </div>
             </div>
           </div>
