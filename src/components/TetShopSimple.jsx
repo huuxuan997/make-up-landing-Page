@@ -10,7 +10,7 @@ const products = [
   { id: 5, name: "Son Kem Lì Vintage", price: 89000, category: "Tóc & Makeup", image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?q=80&w=500&auto=format&fit=crop&ixlib=rb-4.0.3", description: "Son kem lì bền màu, tone đỏ vintage." },
   { id: 6, name: "Phấn Má Hồng Đào", price: 95000, category: "Tóc & Makeup", image: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=500&auto=format&fit=crop&ixlib=rb-4.0.3", description: "Phấn má tự nhiên, màu hồng đào ngọt ngào." },
   { id: 7, name: "Băng Đô Hoa Nhí", price: 65000, category: "Phụ Kiện", image: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=500&auto=format&fit=crop&ixlib=rb-4.0.3", description: "Băng đô hoa nhí vintage, phong cách retro." },
-  { id: 8, name: "Nước Hoa Hồng Tự Nhiên", price: 120000, category: "Skincare", image: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?q=80&w=500&auto=format&fit=crop&ixlib=rb-4.0.3", description: "Nước hoa hồng tự nhiên, dưỡng ẩm da." }
+  { id: 8, name: "Nước Hoa Hồng Tự Nhiên", price: 120000, category: "Mi Mắt", image: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?q=80&w=500&auto=format&fit=crop&ixlib=rb-4.0.3", description: "Nước hoa hồng tự nhiên, dưỡng ẩm da." }
 ];
 
 // Simple cart functions với localStorage
@@ -41,8 +41,23 @@ const TetShopSimple = () => {
   const [copiedLink, setCopiedLink] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
   const [orderData, setOrderData] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState('Tất Cả');
+  const [modalQuantity, setModalQuantity] = useState(1);
 
   console.log('TetShopSimple rendered');
+
+  // Filter products by category
+  const filterProductsByCategory = (category) => {
+    if (category === 'Tất Cả') {
+      return products;
+    }
+    return products.filter(product => product.category === category);
+  };
+
+  const filteredProducts = filterProductsByCategory(selectedCategory);
+
+  // Get unique categories for tabs
+  const categories = ['Tất Cả', ...new Set(products.map(product => product.category))];
 
   // Load cart từ localStorage khi component mount
   useEffect(() => {
@@ -107,10 +122,21 @@ const TetShopSimple = () => {
   // Product modal functions
   const openProductModal = (product) => {
     setViewingProduct(product);
+    setModalQuantity(1); // Reset quantity to 1 when opening modal
   };
 
   const closeProductModal = () => {
     setViewingProduct(null);
+    setModalQuantity(1); // Reset quantity when closing modal
+  };
+
+  // Modal quantity functions
+  const increaseModalQuantity = () => {
+    setModalQuantity(prev => prev + 1);
+  };
+
+  const decreaseModalQuantity = () => {
+    setModalQuantity(prev => prev > 1 ? prev - 1 : 1);
   };
 
   // Checkout function - Show contact options modal
@@ -385,6 +411,49 @@ ${orderItems}
           @media (max-width: 480px) {
             .nav-bar { padding: 12px 16px; border-radius: 8px; }
           }
+          .category-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+          }
+          .category-tabs::-webkit-scrollbar {
+            height: 4px;
+          }
+          .category-tabs::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+          }
+          .category-tabs::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 4px;
+          }
+          .category-tab {
+            background: white;
+            border: 2px solid #f0f0f0;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            color: #666;
+          }
+          .category-tab:hover {
+            border-color: #D4AF37;
+            color: #8B0000;
+          }
+          .category-tab.active {
+            background: #8B0000;
+            border-color: #8B0000;
+            color: white;
+          }
+          @media (max-width: 768px) {
+            .category-tabs { gap: 8px; margin-bottom: 20px; }
+            .category-tab { padding: 10px 16px; font-size: 13px; }
+          }
         `
       }} />
       
@@ -458,8 +527,8 @@ ${orderItems}
         {/* Right Side */}
         <div style={{ display: 'flex', alignItems: 'center', gap: (typeof window !== 'undefined' && window.innerWidth <= 480) ? '8px' : '16px' }}>
           <div style={{ fontSize: '12px', color: '#666', textAlign: 'right' }}>
-            <div style={{ fontWeight: '600', color: '#8B0000' }}>Hotline: 0123.456.789</div>
-            <div>Giao hàng toàn quốc</div>
+            {/* <div style={{ fontWeight: '600', color: '#8B0000' }}>Hotline: 0123.456.789</div> */}
+            {/* <div>Giao hàng toàn quốc</div> */}
           </div>
           <button 
             onClick={toggleCart}
@@ -683,8 +752,15 @@ ${orderItems}
           color: '#2c1810', 
           margin: '0 0 6px 0' 
         }}>
-          Cửa Hàng Phụ Kiện
+          {selectedCategory === 'Tất Cả' ? 'Cửa Hàng Phụ Kiện' : selectedCategory}
         </h1>
+        <p style={{ 
+          color: '#666', 
+          margin: '0 0 12px 0', 
+          fontSize: (typeof window !== 'undefined' && window.innerWidth <= 480) ? '14px' : '16px' 
+        }}>
+          {filteredProducts.length} sản phẩm
+        </p>
         <div style={{ 
           width: (typeof window !== 'undefined' && window.innerWidth <= 480) ? '40px' : '60px', 
           height: (typeof window !== 'undefined' && window.innerWidth <= 480) ? '2px' : '3px', 
@@ -694,9 +770,26 @@ ${orderItems}
         }}></div>
       </div>
 
+      {/* Category Tabs */}
+      <div className="category-tabs">
+        {categories.map(category => (
+          <button
+            key={category}
+            className={`category-tab ${selectedCategory === category ? 'active' : ''}`}
+            onClick={() => setSelectedCategory(category)}
+          >
+            {category === 'Tất Cả' ? `✨ ${category}` : 
+             category === 'Lens' ? `👁️ ${category}` :
+             category === 'Phụ Kiện' ? `💍 ${category}` :
+             category === 'Tóc & Makeup' ? `💄 ${category}` :
+             category === 'Mi Mắt' ? `🧴 ${category}` : category}
+          </button>
+        ))}
+      </div>
+
     {/* Products Grid */}
         <div className="product-grid">
-          {products.map(product => (
+          {filteredProducts.map(product => (
             <div key={product.id} className="product-card">
             <div style={{ width: '100%', paddingBottom: '100%', position: 'relative', borderRadius: '6px', overflow: 'hidden', marginBottom: '12px' }}>
               <img 
@@ -1131,25 +1224,33 @@ ${orderItems}
                   Số lượng
                 </h4>
                 <div style={{ display: 'flex', alignItems: 'center', border: '2px solid #f0f0f0', borderRadius: '12px', width: 'fit-content' }}>
-                  <button style={{ 
-                    background: 'none', 
-                    border: 'none', 
-                    cursor: 'pointer', 
-                    padding: '12px 16px',
-                    fontSize: '18px',
-                    color: '#666'
-                  }}>
+                  <button 
+                    onClick={decreaseModalQuantity}
+                    style={{ 
+                      background: 'none', 
+                      border: 'none', 
+                      cursor: 'pointer', 
+                      padding: '12px 16px',
+                      fontSize: '18px',
+                      color: modalQuantity > 1 ? '#666' : '#ccc',
+                      transition: 'color 0.2s ease'
+                    }}
+                  >
                     <Minus size={16} />
                   </button>
-                  <span style={{ padding: '0 16px', fontSize: '16px', fontWeight: 'bold' }}>1</span>
-                  <button style={{ 
-                    background: 'none', 
-                    border: 'none', 
-                    cursor: 'pointer', 
-                    padding: '12px 16px',
-                    fontSize: '18px',
-                    color: '#666'
-                  }}>
+                  <span style={{ padding: '0 16px', fontSize: '16px', fontWeight: 'bold' }}>{modalQuantity}</span>
+                  <button 
+                    onClick={increaseModalQuantity}
+                    style={{ 
+                      background: 'none', 
+                      border: 'none', 
+                      cursor: 'pointer', 
+                      padding: '12px 16px',
+                      fontSize: '18px',
+                      color: '#666',
+                      transition: 'color 0.2s ease'
+                    }}
+                  >
                     <Plus size={16} />
                   </button>
                 </div>
@@ -1159,7 +1260,10 @@ ${orderItems}
               <div style={{ display: 'flex', flexDirection: (typeof window !== 'undefined' && window.innerWidth > 768) ? 'row' : 'column', gap: '12px' }}>
                 <button 
                   onClick={() => { 
-                    addToCart(viewingProduct); 
+                    // Add multiple items based on modalQuantity
+                    for (let i = 0; i < modalQuantity; i++) {
+                      addToCart(viewingProduct);
+                    }
                     closeProductModal();
                   }}
                   style={{ 
@@ -1182,13 +1286,16 @@ ${orderItems}
                     boxShadow: '0 4px 12px rgba(139, 0, 0, 0.3)'
                   }}
                 >
-                  <ShoppingBag size={20} /> Thêm Vào Giỏ
+                  <ShoppingBag size={20} /> Thêm Vào Giỏ {modalQuantity > 1 ? `(${modalQuantity})` : ''}
                 </button>
                 
                 {/* Buy Now Button */}
                 <button 
                   onClick={() => { 
-                    addToCart(viewingProduct); 
+                    // Add multiple items based on modalQuantity
+                    for (let i = 0; i < modalQuantity; i++) {
+                      addToCart(viewingProduct);
+                    }
                     closeProductModal();
                     setIsCartOpen(true);
                   }}
@@ -1199,7 +1306,7 @@ ${orderItems}
                     border: 'none',
                     padding: '16px 24px',
                     borderRadius: '12px',
-                    fontSize: '16px',
+                    fontSize: '14px',
                     fontWeight: 'bold',
                     cursor: 'pointer',
                     display: 'flex',
@@ -1212,7 +1319,7 @@ ${orderItems}
                     boxShadow: '0 4px 12px rgba(212, 175, 55, 0.3)'
                   }}
                 >
-                  Mua Ngay
+                  Đặt Hàng Ngay
                 </button>
               </div>
               
