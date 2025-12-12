@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingBag, ArrowLeft, Camera, Menu, Plus, Minus, Trash2, X as CloseIcon, Share2, Check, Sparkles } from 'lucide-react';
+import { ShoppingBag, ArrowLeft, Camera, Menu, Plus, Minus, Trash2, X as CloseIcon, Share2, Check, Sparkles, MapPin, Phone, Facebook, Instagram } from 'lucide-react';
 
 // Full product data
 const products = [
@@ -239,6 +239,134 @@ ${orderItems}
           .product-card:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+          }
+          .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+          }
+          @media (max-width: 1024px) {
+            .footer-grid { grid-template-columns: 1fr 1fr 1fr; gap: 30px; }
+            .footer-grid > div:first-child { grid-column: span 1; }
+          }
+          @media (max-width: 768px) {
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 25px; }
+          }
+          @media (max-width: 480px) {
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+          }
+          .footer-3col-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 48px;
+            text-align: left;
+          }
+          @media (max-width: 768px) {
+            .footer-3col-grid { 
+              grid-template-columns: 1fr; 
+              gap: 32px; 
+              text-align: center; 
+            }
+          }
+          .footer-brand-flex {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 8px;
+          }
+          @media (max-width: 768px) {
+            .footer-brand-flex { justify-content: center; }
+          }
+          .footer-brand-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: bold;
+            color: #D4AF37;
+          }
+          @media (max-width: 768px) {
+            .footer-brand-text { font-size: 20px; }
+          }
+          .footer-brand-description {
+            font-family: 'Montserrat', sans-serif;
+            color: #9CA3AF;
+            font-weight: 300;
+            font-size: 14px;
+            line-height: 1.5;
+            max-width: 320px;
+            margin: 0;
+          }
+          @media (max-width: 768px) {
+            .footer-brand-description { 
+              max-width: none; 
+              margin: 0 auto; 
+            }
+          }
+          .footer-heading {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-weight: bold;
+            color: #D4AF37;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 0;
+          }
+          @media (max-width: 768px) {
+            .footer-heading { font-size: 18px; }
+          }
+          .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 12px;
+          }
+          @media (max-width: 768px) {
+            .footer-contact-item { 
+              justify-content: center; 
+              align-items: center;
+            }
+          }
+          .footer-contact-text {
+            font-family: 'Montserrat', sans-serif;
+            color: #D1D5DB;
+            font-size: 14px;
+            text-align: left;
+          }
+          @media (max-width: 768px) {
+            .footer-contact-text { text-align: center; }
+          }
+          .footer-social-links {
+            display: flex;
+            justify-content: flex-start;
+            gap: 16px;
+          }
+          @media (max-width: 768px) {
+            .footer-social-links { justify-content: center; }
+          }
+          .footer-social-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid #4B5563;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #D1D5DB;
+            text-decoration: none;
+            transition: all 0.3s ease;
+          }
+          .footer-social-button:hover {
+            background: #D4AF37;
+            border-color: #D4AF37;
+            color: #2c1810;
+          }
+          .footer-copyright {
+            font-family: 'Montserrat', sans-serif;
+            color: #6B7280;
+            font-size: 12px;
+            margin: 16px 0 0 0;
           }
           .nav-bar { 
             display: flex; 
@@ -1331,6 +1459,88 @@ ${orderItems}
           </div>
         </div>
       )}
+
+      {/* Footer */}
+      <footer id="contact" style={{ 
+        marginTop: '80px',
+        background: '#2c1810',
+        color: '#fdfbf7',
+        padding: '48px 0 64px 0'
+      }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 16px' }}>
+          <div className="footer-3col-grid">
+            
+            {/* Brand Column */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div className="footer-brand-flex">
+                <Camera size={24} color="#D4AF37" />
+                <span className="footer-brand-text">
+                  Mơ Nguyễn Makeup & Studio
+                </span>
+              </div>
+              <p className="footer-brand-description">
+                Chuyên cung cấp dịch vụ chụp ảnh nghệ thuật, áo dài, cổ phục với phong cách tinh tế và chuyên nghiệp hàng đầu.
+              </p>
+            </div>
+            
+            {/* Contact Column */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <h4 className="footer-heading">
+                Liên Hệ
+              </h4>
+              <ul style={{ 
+                margin: 0, 
+                padding: 0, 
+                listStyle: 'none',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '12px'
+              }}>
+                <li className="footer-contact-item">
+                  <MapPin size={16} color="#D4AF37" style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <span className="footer-contact-text">
+                    982 Cách Mạng Tháng 8, Hiệp Ninh, Tây Ninh
+                  </span>
+                </li>
+                <li className="footer-contact-item">
+                  <Phone size={16} color="#D4AF37" style={{ flexShrink: 0 }} />
+                  <span className="footer-contact-text">
+                    038 309 1515 (Zalo/Hotline)
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Social Media Column */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <h4 className="footer-heading">
+                Mạng Xã Hội
+              </h4>
+              <div className="footer-social-links">
+                <a 
+                  href="https://www.facebook.com/mo.nguyen.makeup.98" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer-social-button"
+                >
+                  <Facebook size={18} />
+                </a>
+                <a 
+                  href="https://www.facebook.com/mo.nguyen.makeup.98" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer-social-button"
+                >
+                  <Instagram size={18} />
+                </a>
+              </div>
+              <p className="footer-copyright">
+                © 2025 Mơ Nguyễn Makeup & Studio. All rights reserved.
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
