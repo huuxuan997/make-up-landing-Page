@@ -156,8 +156,8 @@ const TetLandingPage = () => {
         { text: "Makeup & Làm tóc cơ bản", included: true },
         { text: "Chụp ảnh nghệ thuật", included: true },
         { text: "Nhận toàn bộ file gốc", included: true },
-        { text: "Chỉnh sửa 10 ảnh cao cấp", included: true },
         { text: "Trang phục & Phụ kiện", included: false },
+        { text: "Chỉnh sửa chi tiết ảnh", included: false },
       ],
       highlight: false,
       icon: <Camera className="w-6 h-6" />,
@@ -230,27 +230,29 @@ const TetLandingPage = () => {
             </span>
           </div>
 
-          {/* Desktop Menu */}
-          <div className={`hidden md:flex space-x-6 lg:space-x-8 font-body font-medium text-sm tracking-wide ${isScrolled ? 'text-[#2c1810]' : 'text-white'}`}>
-            <button onClick={() => scrollToSection('gallery')} className="hover:text-[#D4AF37] transition-colors whitespace-nowrap">THƯ VIỆN ẢNH</button>
-            <button onClick={() => scrollToSection('pricing')} className="hover:text-[#D4AF37] transition-colors whitespace-nowrap">BẢNG GIÁ</button>
-            <button onClick={() => scrollToSection('ai-consultant')} className="hover:text-[#D4AF37] transition-colors flex items-center gap-1 whitespace-nowrap"><Sparkles size={14}/> AI CONCEPT</button>
-            <button onClick={() => scrollToSection('contact')} className="hover:text-[#D4AF37] transition-colors whitespace-nowrap">LIÊN HỆ</button>
-          </div>
+         {/* Desktop Menu */}
+                <div className={`hidden md:flex space-x-6 lg:space-x-8 font-body font-medium text-sm tracking-wide ${isScrolled ? 'text-[#2c1810]' : 'text-white'}`}>
+                <button onClick={() => scrollToSection('gallery')} className="hover:text-[#D4AF37] transition-colors whitespace-nowrap">THƯ VIỆN ẢNH</button>
+                <button onClick={() => scrollToSection('pricing')} className="hover:text-[#D4AF37] transition-colors whitespace-nowrap">BẢNG GIÁ</button>
+                <a href="/shop" className="hover:text-[#D4AF37] transition-colors whitespace-nowrap">PHỤ KIỆN</a>
+                <button onClick={() => scrollToSection('ai-consultant')} className="hover:text-[#D4AF37] transition-colors flex items-center gap-1 whitespace-nowrap"><Sparkles size={14}/> AI CONCEPT</button>
+                <button onClick={() => scrollToSection('contact')} className="hover:text-[#D4AF37] transition-colors whitespace-nowrap">LIÊN HỆ</button>
+                </div>
 
-          <button 
-            className={`md:hidden p-2 rounded-lg ${isScrolled ? 'text-[#2c1810]' : 'text-[#2c1810]'}`}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            <Menu size={24} />
-          </button>
-        </div>
+                <button 
+                className={`md:hidden p-2 rounded-lg ${isScrolled ? 'text-[#2c1810]' : 'text-[#2c1810]'}`}
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                >
+                <Menu size={24} />
+                </button>
+              </div>
 
-        {/* Mobile Menu */}
+              {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="absolute top-full left-0 w-full bg-white shadow-lg md:hidden flex flex-col p-4 space-y-4 font-body text-center border-t border-gray-100">
             <button onClick={() => scrollToSection('gallery')} className="py-2 text-gray-700 hover:text-[#8B0000]">Thư Viện Ảnh</button>
             <button onClick={() => scrollToSection('pricing')} className="py-2 text-gray-700 hover:text-[#8B0000]">Bảng Giá</button>
+            <a href="/shop" className="py-2 text-gray-700 hover:text-[#8B0000] transition-colors">Phụ Kiện</a>
             <button onClick={() => scrollToSection('ai-consultant')} className="py-2 text-gray-700 hover:text-[#8B0000] flex items-center justify-center gap-2"><Sparkles size={16}/> Gợi Ý Concept AI</button>
             <button onClick={() => scrollToSection('contact')} className="py-2 text-gray-700 hover:text-[#8B0000]">Liên Hệ</button>
           </div>

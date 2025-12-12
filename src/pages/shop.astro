@@ -1,6 +1,6 @@
 ---
-import TetLandingPage from '../components/TetLandingPage.jsx';
-import '../styles/global.css';
+import TetShopSimple from '../components/TetShopSimple.jsx';
+// import TetShop from '../components/TetShop.jsx';
 ---
 
 <html lang="vi">
@@ -9,16 +9,20 @@ import '../styles/global.css';
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>XuanStudio - Chụp Ảnh Tết 2025 | Tích hợp AI Stylist</title>
-    <meta name="description" content="Dịch vụ chụp ảnh Tết chuyên nghiệp. Nhận tư vấn concept miễn phí từ AI Stylist." />
+    <title>Cửa Hàng Phụ Kiện - XuanStudio</title>
     
-    <!-- Load Fonts -->
+    <!-- Load Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   </head>
   <body>
-    <!-- client:load là bắt buộc để React chạy được các tính năng tương tác -->
-    <TetLandingPage client:load />
+    <!-- Thử version đơn giản hơn -->
+    <TetShopSimple client:load />
+    <!-- <TetShop client:load /> -->
+    
+    <script>
+      console.log('Shop page with simple component loaded');
+    </script>
   </body>
 </html>
