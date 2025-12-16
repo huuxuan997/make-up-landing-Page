@@ -165,7 +165,7 @@ const TetLandingPage = () => {
     {
       id: 2,
       name: "Gói Nét Việt",
-      price: "1.500.000",
+      price: "1.200.000",
       description: "Gói được yêu thích nhất với vẻ đẹp Áo Dài truyền thống.",
       features: [
         { text: "Makeup & Làm tóc chuyên nghiệp", included: true },
@@ -180,7 +180,7 @@ const TetLandingPage = () => {
     {
       id: 3,
       name: "Gói Hoài Cổ",
-      price: "1.800.000",
+      price: "1.600.000",
       description: "Trải nghiệm sự sang trọng với Cổ Phục Việt Nam.",
       features: [
         { text: "Makeup & Làm tóc concept", included: true },
