@@ -12,6 +12,16 @@ import '../styles/global.css';
     <title>Mơ Nguyễn Makeup - Chụp Ảnh Tết 2025 | Tích hợp AI Stylist</title>
     <meta name="description" content="Dịch vụ chụp ảnh Tết chuyên nghiệp. Nhận tư vấn concept miễn phí từ AI Stylist." />
     
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17796467659"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-17796467659');
+    </script>
+
     <!-- Load Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,5 +30,14 @@ import '../styles/global.css';
   <body>
     <!-- client:load là bắt buộc để React chạy được các tính năng tương tác -->
     <TetLandingPage client:load />
+    
+    <!-- Event snippet for Lượt xem trang conversion page -->
+    <script>
+      gtag('event', 'conversion', {
+          'send_to': 'AW-17796467659/SJ49COyf4dIbEMuXgqZC',
+          'value': 1.0,
+          'currency': 'VND'
+      });
+    </script>
   </body>
 </html>
