@@ -99,12 +99,43 @@ const TetLandingPage = () => {
 
   // Hàm để đặt lịch (hiển thị modal chọn cách liên hệ)
   const handleBooking = (packageName = '') => {
+    // Track Google Ads conversion event for "Đặt lịch ngay" button click
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'conversion', {
+        'send_to': 'AW-17796467659/BOOKING_CONVERSION_ID', // Replace with your actual booking conversion ID
+        'event_category': 'engagement',
+        'event_label': 'booking_button_click',
+        'value': 1.0,
+        'currency': 'VND',
+        'custom_parameters': {
+          'package_name': packageName || 'Unknown',
+          'action': 'booking_initiated'
+        }
+      });
+    }
+    
     setCurrentBookingPackage(packageName);
     setShowBookingModal(true);
   };
 
   // Hàm thực hiện liên hệ
   const handleContact = (method) => {
+    // Track Google Ads conversion event for actual contact (higher value conversion)
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'conversion', {
+        'send_to': 'AW-17796467659/CONTACT_CONVERSION_ID', // Replace with your actual contact conversion ID
+        'event_category': 'conversion',
+        'event_label': 'contact_initiated',
+        'value': 5.0, // Higher value for actual contact
+        'currency': 'VND',
+        'custom_parameters': {
+          'contact_method': method,
+          'package_name': currentBookingPackage || 'Unknown',
+          'action': 'contact_completed'
+        }
+      });
+    }
+
     const phoneNumber = "0383091515";
     let message = "Xin chào! Tôi muốn đặt lịch chụp ảnh Tết 2025";
     
