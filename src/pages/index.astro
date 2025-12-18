@@ -22,15 +22,6 @@ import '../styles/global.css';
       gtag('config', 'AW-17796467659');
     </script>
 
-    <!-- Load Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <!-- client:load là bắt buộc để React chạy được các tính năng tương tác -->
-    <TetLandingPage client:load />
-    
     <!-- Event snippet for Lượt xem trang conversion page -->
     <script>
       gtag('event', 'conversion', {
@@ -39,5 +30,14 @@ import '../styles/global.css';
           'currency': 'VND'
       });
     </script>
+
+    <!-- Load Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- client:load là bắt buộc để React chạy được các tính năng tương tác -->
+    <TetLandingPage client:load />
   </body>
 </html>
